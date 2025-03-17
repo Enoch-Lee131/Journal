@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { FiSend } from "react-icons/fi";
+import { getApiUrl } from '../../lib/api';
+
 
 interface WriteJournalProps {
   user: any;
@@ -33,7 +35,7 @@ const WriteJournal: React.FC<WriteJournalProps> = ({ user, onEntrySubmitted }) =
     
     try {
       // Add tags to the request
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/journal`, {
+      const res = await axios.post(`${getApiUrl()}/journals`, {
         entry,
         user_id: user.id,
         tags: tags

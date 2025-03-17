@@ -1,6 +1,7 @@
 // src/components/ai/AICounselor.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { getApiUrl } from '../../lib/api';
 
 interface Message {
   id: string;
@@ -40,7 +41,7 @@ const AICounselor: React.FC<AICounselorProps> = ({ user }) => {
     
     setIsLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/journal`, {
+      const res = await axios.post(`${getApiUrl()}/journal`, {
         user_id: user.id
       });
       
@@ -95,7 +96,7 @@ const AICounselor: React.FC<AICounselorProps> = ({ user }) => {
       const context = recentMessages.map(msg => `${msg.sender}: ${msg.text}`).join('\n');
       
       // Send to OpenAI API for response
-      const openaiResponse = await axios.post(`${import.meta.env.VITE_API_URL}/chat`, {
+      const openaiResponse = await axios.post(`${getApiUrl()}/chat`, {
         user_id: user.id,
         message: newMessage,
         context: context,

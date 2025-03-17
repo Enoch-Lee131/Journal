@@ -6,6 +6,7 @@ import EntryDetail from "./EntryDetail";
 import ListView from "./ListView";
 import CalendarView from "./CalendarView";
 import TimelineView from "./TimelineView";
+import { getApiUrl } from '../../lib/api';
 
 interface ViewJournalsProps {
   user: any;
@@ -26,7 +27,7 @@ const ViewJournals: React.FC<ViewJournalsProps> = ({ user }) => {
   const fetchJournals = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/journals/${user.id}`);
+      const res = await axios.get(`${getApiUrl()}/journals/${user.id}`);
       setJournalList(res.data);
     } catch (error) {
       console.error("Error fetching journals:", error);
