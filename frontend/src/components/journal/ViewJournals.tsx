@@ -26,7 +26,7 @@ const ViewJournals: React.FC<ViewJournalsProps> = ({ user }) => {
   const fetchJournals = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8000/journals/${user.id}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/journals/${user.id}`);
       setJournalList(res.data);
     } catch (error) {
       console.error("Error fetching journals:", error);
@@ -35,7 +35,6 @@ const ViewJournals: React.FC<ViewJournalsProps> = ({ user }) => {
     }
   };
 
-  // Filter entries based on search term and filter mode
   const filteredEntries = journalList.filter(entry => {
     // Search filter
     const matchesSearch = searchTerm === "" || 

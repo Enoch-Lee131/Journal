@@ -33,7 +33,7 @@ const WriteJournal: React.FC<WriteJournalProps> = ({ user, onEntrySubmitted }) =
     
     try {
       // Add tags to the request
-      const res = await axios.post("http://localhost:8000/journal", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/journal`, {
         entry,
         user_id: user.id,
         tags: tags

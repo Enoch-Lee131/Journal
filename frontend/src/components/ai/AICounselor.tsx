@@ -40,22 +40,22 @@ const AICounselor: React.FC<AICounselorProps> = ({ user }) => {
     
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/counselor', {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/journal`, {
         user_id: user.id
       });
       
-      setInitialAnalysis(response.data.analysis);
+      setInitialAnalysis(res.data.analysis);
       
       // Add the initial analysis as the first message from AI
       setMessages([
         {
           id: Date.now().toString(),
-          text: response.data.analysis,
+          text: res.data.analysis,
           sender: 'ai',
           timestamp: new Date()
         }
       ]);
-      
+            
       setHasInitialAnalysis(true);
     } catch (error) {
       console.error('Error getting initial analysis:', error);
@@ -95,13 +95,13 @@ const AICounselor: React.FC<AICounselorProps> = ({ user }) => {
       const context = recentMessages.map(msg => `${msg.sender}: ${msg.text}`).join('\n');
       
       // Send to OpenAI API for response
-      const openaiResponse = await axios.post('http://localhost:8000/chat', {
+      const openaiResponse = await axios.post(`${import.meta.env.VITE_API_URL}/chat`, {
         user_id: user.id,
         message: newMessage,
         context: context,
         initial_analysis: initialAnalysis
       });
-      
+            
       // Add AI response to chat
       const aiMessage: Message = {
         id: Date.now().toString() + '-ai',

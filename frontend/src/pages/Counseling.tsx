@@ -14,7 +14,7 @@ const Counseling: React.FC<CounselingProps> = ({ user }) => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post("http://localhost:8000/counselor", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/journal`, {
         user_id: user.id,
       });
       setAnalysis(res.data.analysis);

@@ -17,6 +17,10 @@ nltk.download('vader_lexicon')
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "API is running"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # Adjust as needed
